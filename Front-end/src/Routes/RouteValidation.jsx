@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from "react";
 const ProtectedRoute = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const toastShown = useRef(false); // prevent multiple toasts
+    const toastShown = useRef(false); 
 
     useEffect(() => {
         async function fetchMe() {
@@ -31,12 +31,10 @@ const ProtectedRoute = () => {
         fetchMe();
     }, []);
 
-    // ⏳ WAIT until auth check finishes
     if (loading) {
         return <div className="text-center mt-10">Checking authentication...</div>;
     }
 
-    // ❌ Not logged in
     if (!user) {
         if (!toastShown.current) {
             toast.error("Please login first");
@@ -45,7 +43,6 @@ const ProtectedRoute = () => {
         return <Navigate to="/Login" replace />;
     }
 
-    // ✅ Logged in
     return <Outlet />;
 };
 
