@@ -363,6 +363,7 @@ export default function BankExpense() {
     useEffect(() => {
         setFilteredExpenses(expenses);
     }, [expenses]);
+
     useEffect(() => {
         setCurrentPage(1);
     }, [search]);
@@ -703,7 +704,6 @@ export default function BankExpense() {
                                 </button>
                             </div>
                         </div>
-
                     </div>
                 )}
             </div>

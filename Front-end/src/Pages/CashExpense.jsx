@@ -173,6 +173,82 @@ export default function CashExpense() {
         });
     };
 
+    const handleEdit = async (e) => {
+        if (!formData.mode || !formData.type || !formData.monthId || !formData.particular || !formData.expenseAmount || !formData.description || !formData.date) {
+            toast.error("Please fill all required fields");
+            return;
+        }
+        try {
+            const res = await fetch(BaseUrl + "expenses/bank/" + formData._id, {
+                method: "Put",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify(formData),
+            });
+            const data = await res.json();
+
+            if (!res.ok) {
+                toast.error(data.message || "Failed to add expense");
+                return;
+            } else {
+                toast.success("Expense updated successfully");
+                setFormData({
+                    mode: "bank",
+                    type: "credit",
+                    monthId: selectedMonthId,
+                    accountNumber: "",
+                    expenseAmount: "",
+                    particular: "",
+                    description: "",
+                    date: new Date().toISOString().split('T')[0],
+                });
+                fetchCashExpenses();
+                fetchMonths();
+            }
+        } catch (error) {
+            console.error("Expense Error:", error);
+            toast.error("Server error");
+        }
+    };
+
+    const handleDelete = async (e) => {
+        try {
+            const res = await fetch(BaseUrl + "expenses/bank/" + e._id, {
+                method: "Delete",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify(e),
+            });
+            const data = await res.json();
+
+            if (!res.ok) {
+                toast.error(data.message || "Failed");
+                return;
+            } else {
+                toast.success("Expense deleted successfully");
+                setFormData({
+                    mode: "bank",
+                    type: "credit",
+                    monthId: selectedMonthId,
+                    accountNumber: "",
+                    expenseAmount: "",
+                    particular: "",
+                    description: "",
+                    date: new Date().toISOString().split('T')[0],
+                });
+                fetchCashExpenses();
+                fetchMonths();
+            }
+        } catch (error) {
+            console.error("Expense Error:", error);
+            toast.error("Server error");
+        }
+    };
+
     return (
         <div className="flex min-h-screen bg-gray-100">
             <div className={`bg-white shadow-md transition-all duration-300 ${sidebarOpen ? "w-80" : "w-16"}`}>
@@ -295,10 +371,14 @@ export default function CashExpense() {
                                 className="w-full border px-2 py-1 rounded"
                             />
                         </div>
-
-                        <button onClick={handleSubmit} type="submit" className="w-full bg-indigo-600 text-white px-3 py-2 rounded hover:bg-indigo-700">
-                            Add Expense
-                        </button>
+                        {edit ?
+                            <button onClick={handleEdit} type="submit" className="w-full bg-indigo-600 text-white px-3 py-2 rounded hover:bg-indigo-700">
+                                Edit Expense
+                            </button>
+                            :
+                            <button onClick={handleSubmit} type="submit" className="w-full bg-indigo-600 text-white px-3 py-2 rounded hover:bg-indigo-700">
+                                Add Expense
+                            </button>}
                     </div>
                 )}
             </div>
@@ -385,11 +465,11 @@ export default function CashExpense() {
                                                     className="p-2 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-600 hover:text-white transition">
                                                     <Eye size={18} />
                                                 </button>
-                                                <button onClick={() => ""}
+                                                <button onClick={() => { setFormData(exp), setEdit(true) }}
                                                     className="p-2 rounded-full bg-green-100 text-green-600 hover:bg-green-600 hover:text-white transition">
                                                     <Edit size={18} />
                                                 </button>
-                                                <button onClick={() => ""}
+                                                <button onClick={() => handleDelete(exp)}
                                                     className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-600 hover:text-white transition">
                                                     <Trash size={18} />
                                                 </button>

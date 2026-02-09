@@ -163,7 +163,7 @@ export default function Months() {
                                     <th className="px-4 py-2 text-left">Opening Bal</th>
                                     <th className="px-4 py-2 text-left">Closing Bal</th>
                                     <th className="px-4 py-2 text-left">Type</th>
-                                    <th className="px-4 py-2 text-left">Action</th>
+                                    {/* <th className="px-4 py-2 text-left">Action</th> */}
                                 </tr>
                             </thead>
                             <tbody>
@@ -175,11 +175,11 @@ export default function Months() {
                                         <td className="px-4 py-2">{mon?.openingBalance}</td>
                                         <td className="px-4 py-2">{mon?.closingBalance}</td>
                                         <td className="px-4 py-2">{mon?.type}</td>
-                                        <td className="px-4 py-2">
+                                        {/* <td className="px-4 py-2">
                                             <button className="p-2 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors duration-300 shadow">
                                                 <Eye size={20} />
                                             </button>
-                                        </td>
+                                        </td> */}
                                     </tr>
                                 ))}
                             </tbody>
