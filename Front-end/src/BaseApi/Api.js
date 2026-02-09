@@ -1,2 +1,2 @@
-// export const BaseUrl = "http://localhost:5000/"
-export const BaseUrl = "https://expense-rosy-tau.vercel.app/"
+export const BaseUrl = import.meta.env.BACKEND_URL
+// export const BaseUrl = "https://expense-rosy-tau.vercel.app/"

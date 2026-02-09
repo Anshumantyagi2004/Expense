@@ -9,12 +9,12 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT;
 
 app.use(
   cors({
-    // origin: "http://localhost:5173",
-    origin: "https://expense-q8e5.vercel.app",
+    origin: process.env.CLIENT_URL,
+    // origin: "https://expense-q8e5.vercel.app",
     credentials: true,
   })
 );

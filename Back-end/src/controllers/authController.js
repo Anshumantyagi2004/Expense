@@ -74,15 +74,15 @@ export const login = async (req, res) => {
 
     // 🍪 SET COOKIE
     res.cookie("token", token, {
-      // httpOnly: true,
-      // secure: false,     // true in production
-      // sameSite: "lax",
-      // maxAge: 24 * 60 * 60 * 1000,
       httpOnly: true,
-      secure: true,        // ✅ required on HTTPS (Vercel)
-      sameSite: "none",    // ✅ allow cross-site cookies
+      secure: false,     // true in production
+      sameSite: "lax",
       maxAge: 24 * 60 * 60 * 1000,
-      path: "/"
+      // httpOnly: true,
+      // secure: true,        // ✅ required on HTTPS (Vercel)
+      // sameSite: "none",    // ✅ allow cross-site cookies
+      // maxAge: 24 * 60 * 60 * 1000,
+      // path: "/"
     });
 
     res.status(200).json({
