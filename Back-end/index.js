@@ -27,6 +27,6 @@ app.get("/", (req, res) => {
 
 connectDB();
 
-app.use("/", mainRoute);
+app.use("/api", mainRoute);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
